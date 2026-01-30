@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💳 Smart Fraud Detection Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container-wide">
+  <h1>💳 Smart Fraud Detection Dashboard</h1>
+  <p>Enter transaction details below to check its fraud risk in real-time.</p>
+
+  <div class="dashboard-grid">
+
+    <!-- Input Form -->
+    <div class="form-card">
+      <h2>Transaction Input</h2>
+      <form action="/predict" method="POST">
+
+        <input type="number" step="0.01" name="amount"
+               placeholder="Transaction Amount (INR)" required>
+
+        <select name="card_type" required>
+          <option disabled selected>Select Card Type</option>
+          {% for c in card_types %}
+          <option value="{{ c }}">{{ c }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="bank" required>
+          <option disabled selected>Select Bank</option>
+          {% for b in banks %}
+          <option value="{{ b }}">{{ b }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="category" required>
+          <option disabled selected>Select Transaction Category</option>
+          {% for cat in categories %}
+          <option value="{{ cat }}">{{ cat }}</option>
+          {% endfor %}
+        </select>
+
+        <select name="state" required>
+          <option disabled selected>Select State</option>
+          {% for s in states %}
+          <option value="{{ s }}">{{ s }}</option>
+          {% endfor %}
+        </select>
+
+        <button type="submit">🚀 Predict</button>
+      </form>
+    </div>
+
+    <!-- Output Panel -->
+    <div class="output-card">
+      {% if prediction_text %}
+
+      <h2>Transaction Summary</h2>
+      <ul class="summary">
+        <li><strong>Amount:</strong> ₹{{ amount }}</li>
+        <li><strong>Card Type:</strong> {{ card_type_input }}</li>
+        <li><strong>Bank:</strong> {{ bank_input }}</li>
+        <li><strong>Category:</strong> {{ category_input }}</li>
+        <li><strong>State:</strong> {{ state_input }}</li>
+      </ul>
+
+      <h2>Prediction</h2>
+      <div class="risk-badge {{ color }}">{{ risk_level }}</div>
+
+      <div class="progress-container">
+        <div class="progress-bar {{ color }}"
+             style="width: {{ risk_percent }}%;">
+          {{ risk_percent }}%
+        </div>
+      </div>
+
+      <p class="prediction-text">{{ prediction_text }}</p>
+      <p class="advice">💡 {{ advice }}</p>
+
+      {% if insights %}
+      <div class="insights">
+        <h3>🔍 Insights</h3>
+        <ul>
+          {% for i in insights %}
+          <li>{{ i }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- Transaction History -->
+  {% if history %}
+  <div class="history-card">
+    <h2>📜 Recent Transactions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Bank</th>
+          <th>Category</th>
+          <th>Risk %</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in history %}
+        <tr>
+          <td>₹{{ item.amount }}</td>
+          <td>{{ item.bank }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.risk_percent }}%</td>
+          <td>
+            {% if item.risk_level == "Low" %}✅ Legitimate
+            {% elif item.risk_level == "Medium" %}⚠️ Risky
+            {% else %}🚨 Fraudulent
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+</div>
+</body>
+</html>

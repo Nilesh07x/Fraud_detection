@@ -1,0 +1,51 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle at top left, #1f1f1f, #2e2e2e);
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.container-wide { width: 85%; margin: 20px auto; text-align: center; }
+
+h1 { margin-bottom: 10px; font-size: 30px; }
+
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
+
+.form-card, .output-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  text-align: left;
+}
+
+input, select, output { width: 95%; margin: 10px 0; padding: 10px; border-radius: 10px; border: none; background: rgba(255,255,255,0.9); color: black; font-size: 15px; }
+
+button {
+  margin-top: 15px; background: #00c6ff; border: none; color: white; padding: 12px 30px; border-radius: 10px; font-size: 16px; cursor: pointer;
+}
+button:hover { background: #0072ff; }
+
+.summary li { margin: 6px 0; list-style: none; }
+
+.risk-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 10px; }
+.green { background-color: #00ff87; color: black; }
+.orange { background-color: #ffbf00; color: black; }
+.red { background-color: #ff4c4c; color: white; }
+
+.progress-container { width: 100%; background: rgba(255,255,255,0.2); border-radius: 20px; margin: 10px 0; }
+.progress-bar { height: 30px; border-radius: 20px; line-height: 30px; color: black; font-weight: bold; text-align: center; transition: width 1s ease-in-out; }
+.progress-bar.green { background: linear-gradient(90deg, #00ff87, #00c6ff); }
+.progress-bar.orange { background: linear-gradient(90deg, #ffbf00, #ff8c00); }
+.progress-bar.red { background: linear-gradient(90deg, #ff4c4c, #ff0000); }
+
+.insights { margin-top: 15px; }
+.insights ul { padding-left: 20px; }
+.insights li { margin-bottom: 5px; }
+
+.history-card { margin-top: 30px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; padding: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); text-align: center; }
+th { color: #00c6ff; }
